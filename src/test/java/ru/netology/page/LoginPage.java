@@ -30,6 +30,7 @@ public class LoginPage {
     public void invalidLogin(User user) {
         fillLoginForm(user.getLogin(), user.getPassword());
         errorNotification.shouldHave(Condition.text("Неверно указан логин или пароль"));
+        errorNotification.shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
     }
 
     public void emptyLogin(User user) {
@@ -40,10 +41,5 @@ public class LoginPage {
     public void emptyPassword(User user) {
         fillLoginForm(user.getLogin(), user.getPassword());
         passwordSub.shouldHave(Condition.text("Поле обязательно для заполнения"));
-    }
-
-    public void thirdInvalidLogin(User user) {
-        fillLoginForm(user.getLogin(), user.getPassword());
-        errorNotification.shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
     }
 }

@@ -23,13 +23,8 @@ public class VerificationPage {
     public void invalidVerify(String invalidCode) {
         fillVerificationForm(invalidCode);
         errorNotification.shouldHave(Condition.text("Неверно указан код! Попробуйте ещё раз."));
-    }
-
-    public void thirdInvalidVerify(String invalidCode) {
-        fillVerificationForm(invalidCode);
         errorNotification.shouldHave(Condition.text("Трижды неверно указан код! Система заблокирована."));
     }
-
     private void fillVerificationForm(String code) {
         codeField.setValue(code);
         verifyButton.click();

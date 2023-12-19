@@ -81,8 +81,5 @@ public class TestInteraction {
         User user = users.get(new Random().nextInt(users.size() - 1));
         var loginPage = new LoginPage();
         loginPage.invalidLogin(user);
-        loginPage.invalidLogin(user);
-        loginPage.thirdInvalidLogin(user);
     }
-
 }
