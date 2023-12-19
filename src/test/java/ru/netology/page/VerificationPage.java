@@ -20,11 +20,11 @@ public class VerificationPage {
         return new DashboardPage();
     }
 
-    public void invalidVerify(String invalidCode) {
-        fillVerificationForm(invalidCode);
-        errorNotification.shouldHave(Condition.text("Неверно указан код! Попробуйте ещё раз."));
-        errorNotification.shouldHave(Condition.text("Трижды неверно указан код! Система заблокирована."));
+    public void verifyWithErrorMessage(String verificationCode, String expectedErrorMessage) {
+        fillVerificationForm(verificationCode);
+        errorNotification.shouldHave(Condition.text(expectedErrorMessage));
     }
+
     private void fillVerificationForm(String code) {
         codeField.setValue(code);
         verifyButton.click();

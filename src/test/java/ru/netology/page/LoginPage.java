@@ -27,10 +27,9 @@ public class LoginPage {
         return new VerificationPage();
     }
 
-    public void invalidLogin(User user) {
+    public void invalidLogin(User user, String expectedErrorMessage) {
         fillLoginForm(user.getLogin(), user.getPassword());
-        errorNotification.shouldHave(Condition.text("Неверно указан логин или пароль"));
-        errorNotification.shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
+        errorNotification.shouldHave(Condition.text(expectedErrorMessage));
     }
 
     public void emptyLogin(User user) {

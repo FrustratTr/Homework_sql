@@ -65,21 +65,20 @@ public class TestInteraction {
     void shouldNotLoginByInvalidPassword() {
         User user = new User("", users.get(new Random().nextInt(users.size() - 1)).getLogin(), "123");
         var loginPage = new LoginPage();
-        loginPage.invalidLogin(user);
+        loginPage.invalidLogin(user, "Неверно указан логин или пароль");
     }
 
     @Test
     void shouldNotLoginByUnexistingLoginWithExistingPassword() {
         User user = new User("", "login", users.get(new Random().nextInt(users.size() - 1)).getPassword());
         var loginPage = new LoginPage();
-        loginPage.invalidLogin(user);
+        loginPage.invalidLogin(user, "Неверно указан логин или пароль");
     }
-
 
     @Test
     void shouldBlockByTripleInvalidLogin() {
         User user = users.get(new Random().nextInt(users.size() - 1));
         var loginPage = new LoginPage();
-        loginPage.invalidLogin(user);
+        loginPage.invalidLogin(user, "Ошибка! Неверно указан логин или пароль");
     }
 }
