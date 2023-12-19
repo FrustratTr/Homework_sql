@@ -15,41 +15,35 @@ public class LoginPage {
     private SelenideElement loginSub = $("[data-test-id=login] .input__sub");
     private SelenideElement passwordSub = $("[data-test-id=password] .input__sub");
 
-    public VerificationPage validLogin(User user) {
-        loginField.val(user.getLogin());
-        passwordField.val("qwerty123");
+    private void fillLoginForm(String login, String password) {
+        loginField.sendKeys(Keys.CONTROL + "A", Keys.BACK_SPACE);
+        loginField.val(login);
+        passwordField.val(password);
         loginButton.click();
+    }
+
+    public VerificationPage validLogin(User user) {
+        fillLoginForm(user.getLogin(), "qwerty123");
         return new VerificationPage();
     }
 
     public void invalidLogin(User user) {
-        loginField.sendKeys(Keys.CONTROL + "A", Keys.BACK_SPACE);
-        loginField.val(user.getLogin());
-        passwordField.val(user.getPassword());
-        loginButton.click();
+        fillLoginForm(user.getLogin(), user.getPassword());
         errorNotification.shouldHave(Condition.text("Неверно указан логин или пароль"));
     }
 
     public void emptyLogin(User user) {
-        loginField.val(user.getLogin());
-        passwordField.val(user.getPassword());
-        loginButton.click();
+        fillLoginForm(user.getLogin(), user.getPassword());
         loginSub.shouldHave(Condition.text("Поле обязательно для заполнения"));
     }
 
     public void emptyPassword(User user) {
-        loginField.val(user.getLogin());
-        passwordField.val(user.getPassword());
-        loginButton.click();
+        fillLoginForm(user.getLogin(), user.getPassword());
         passwordSub.shouldHave(Condition.text("Поле обязательно для заполнения"));
     }
 
     public void thirdInvalidLogin(User user) {
-        loginField.sendKeys(Keys.CONTROL + "A", Keys.BACK_SPACE);
-        loginField.val(user.getLogin());
-        passwordField.val(user.getPassword());
-        loginButton.click();
+        fillLoginForm(user.getLogin(), user.getPassword());
         errorNotification.shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
     }
-
 }

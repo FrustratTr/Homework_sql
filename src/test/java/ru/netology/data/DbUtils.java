@@ -17,14 +17,13 @@ public class DbUtils {
         var runner = new QueryRunner();
         String verificationCode;
 
-        try (
-                var conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
-                );
-        ) {
-            var code = runner.query(conn, codeSQL, new ScalarHandler<>());
-            verificationCode = (String) code;
-        }
+        var conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/app", "app", "pass"
+        );
+
+        var code = runner.query(conn, codeSQL, new ScalarHandler<>());
+        verificationCode = (String) code;
+
         return verificationCode;
     }
 
@@ -35,15 +34,13 @@ public class DbUtils {
         var usersSQL = "DELETE FROM users";
         var runner = new QueryRunner();
 
-        try (
-                var conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
-                );
-        ) {
-            runner.execute(conn, authSQL, new ScalarHandler<>());
-            runner.execute(conn, cardsSQL, new ScalarHandler<>());
-            runner.execute(conn, usersSQL, new ScalarHandler<>());
-        }
+        var conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/app", "app", "pass"
+        );
+
+        runner.execute(conn, authSQL, new ScalarHandler<>());
+        runner.execute(conn, cardsSQL, new ScalarHandler<>());
+        runner.execute(conn, usersSQL, new ScalarHandler<>());
     }
 
     @SneakyThrows
@@ -53,13 +50,12 @@ public class DbUtils {
         var addUserSQL = "INSERT INTO users (id, login, password) VALUES (?, ?, ?);";
         var runner = new QueryRunner();
 
-        try (
-                var conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
-                );
-        ) {
-            runner.update(conn, addUserSQL, user.getId(), user.getLogin(), user.getPassword());
-        }
+        var conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/app", "app", "pass"
+        );
+
+        runner.update(conn, addUserSQL, user.getId(), user.getLogin(), user.getPassword());
+
         return user;
     }
 }
